@@ -1,0 +1,1636 @@
+import { i as __toESM } from "../_runtime.mjs";
+import { C as require_jsx_runtime, Y as require_react, b as Link, p as useRouterState, x as useNavigate } from "../_libs/@tanstack/react-router+[...].mjs";
+import { c as Bookmark, i as House, l as BookOpen, n as Search } from "../_libs/lucide-react.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/shell-CmXSOBEl.js
+var import_react = /* @__PURE__ */ __toESM(require_react());
+var import_jsx_runtime = require_jsx_runtime();
+var LEVELS = [
+	{
+		id: "all",
+		label: "全部"
+	},
+	{
+		id: "intro",
+		label: "入門"
+	},
+	{
+		id: "advanced",
+		label: "進階"
+	},
+	{
+		id: "site",
+		label: "現場"
+	}
+];
+var SITE_IDS = /* @__PURE__ */ new Set([
+	"tiles",
+	"hoarding",
+	"demo",
+	"drain",
+	"minor-works",
+	"tcp",
+	"rebar",
+	"mbis",
+	"gas-heater",
+	"fs-management",
+	"spalling",
+	"tanking",
+	"site-audit",
+	"ironmongery",
+	"mw-class"
+]);
+function levelOf(fact) {
+	if (SITE_IDS.has(fact.id)) return "site";
+	if (fact.importance >= 4) return "advanced";
+	return "intro";
+}
+function levelLabel(level) {
+	return LEVELS.find((item) => item.id === level)?.label ?? level;
+}
+var TOPICS = [
+	{
+		id: "all",
+		label: "全部",
+		hint: "睇唔完"
+	},
+	{
+		id: "planning",
+		label: "規劃",
+		hint: "地積 · 上蓋 · 採光"
+	},
+	{
+		id: "fire",
+		label: "消防",
+		hint: "走火 · 隔火 · EVA"
+	},
+	{
+		id: "access",
+		label: "無障礙",
+		hint: "BFA · DMUA"
+	},
+	{
+		id: "pnap",
+		label: "PNAP",
+		hint: "APP · ADM · ADV"
+	},
+	{
+		id: "construct",
+		label: "建造",
+		hint: "Cap. 123B"
+	},
+	{
+		id: "sanitary",
+		label: "衛生",
+		hint: "Cap. 123I"
+	},
+	{
+		id: "works",
+		label: "小型工程",
+		hint: "三級管制"
+	},
+	{
+		id: "process",
+		label: "交圖",
+		hint: "批准 · OP"
+	},
+	{
+		id: "structure",
+		label: "結構",
+		hint: "風 · 基礎 · 活載"
+	}
+];
+function topicLabel(id) {
+	return TOPICS.find((t) => t.id === id)?.label ?? id;
+}
+var SRC = {
+	bo: "https://www.elegislation.gov.hk/hk/cap123",
+	bpr: "https://www.elegislation.gov.hk/hk/cap123F",
+	bcr: "https://www.elegislation.gov.hk/hk/cap123B",
+	sani: "https://www.elegislation.gov.hk/hk/cap123I",
+	pnap: "https://www.bd.gov.hk/en/resources/codes-and-references/practice-notes-and-circular-letters/index_pnap.html",
+	fs: "https://www.bd.gov.hk/doc/en/resources/codes-and-references/code-and-design-manuals/fs_code2011.pdf",
+	bfa: "https://www.bd.gov.hk/doc/en/resources/codes-and-references/code-and-design-manuals/BFA2008_e.pdf",
+	dmua: "https://www.bd.gov.hk/doc/en/resources/codes-and-references/code-and-design-manuals/DMUA2026e.pdf",
+	app152: "https://www.bd.gov.hk/doc/en/resources/codes-and-references/practice-notes-and-circular-letters/pnap/APP/APP152.pdf",
+	app176: "https://www.bd.gov.hk/doc/en/resources/codes-and-references/practice-notes-and-circular-letters/pnap/APP/APP176.pdf",
+	codes: "https://www.bd.gov.hk/en/resources/codes-and-references/codes-and-design-manuals/index.html"
+};
+var FACTS = [
+	{
+		id: "pr-dom-ends",
+		topic: "planning",
+		importance: 5,
+		code: "B(P)R",
+		ref: "第20、21條 · 附表1",
+		title: "住用地積，只背兩極",
+		point: "住用、高度超過61米：甲類地盤地積比率 8、上蓋 33.33%；乙類 9 同 37.5%；丙類 10 同 40%。15米或以下係另一極：甲類地積 3.3、上蓋 66.6%；乙類 3.75 同 75%；丙類 4 同 80%。",
+		detail: "中間高度係附表1逐級跳，唔好用直線插。地積同上蓋係兩條上限，邊條先頂到就要邊條。高度點樣量去跟定義同 APP-5，唔好由地面量到天線就當入表。",
+		sourceUrl: SRC.bpr,
+		sourceLabel: "Cap. 123F 附表1",
+		traps: [
+			"甲類高樓地積當10",
+			"全棟只用一個上蓋數",
+			"15米以下都當可以做到8"
+		],
+		lines: [
+			"住用、過61米、甲類。我個腦入面有 8、9、10 三個數，分唔清邊個先係甲類。乙類丙類仲未開始背。",
+			"有人話住用甲類高樓地積可以去到10，因為『角落先少啲』。我個筆記寫8。邊個教壞邊個？",
+			"附表1我而家只敢背兩極：15米以下，同過61米。中間高度我拒絕估。"
+		],
+		keywords: "地積 plot ratio 上蓋 site coverage 甲類 乙類 丙類 61米 附表1 住用 domestic"
+	},
+	{
+		id: "pr-nd-ends",
+		topic: "planning",
+		importance: 5,
+		code: "B(P)R",
+		ref: "第20、21條 · 附表1",
+		title: "非住用高樓，地積15",
+		point: "非住用、高度超過61米：甲乙丙類地積比率都係15。上蓋就唔同：甲類 60%、乙類 62.5%、丙類 65%。15米或以下：三類地積都係5，上蓋可以去到100%。",
+		detail: "所以『非住用高樓地積15』唔代表上蓋都一樣。矮樓100%上蓋都唔代表地積跟住爆。兩條上限分開查表。",
+		sourceUrl: SRC.bpr,
+		sourceLabel: "Cap. 123F 附表1",
+		traps: [
+			"非住用過61米地積當8",
+			"上蓋三類都當60%",
+			"矮樓100%上蓋就當地積都15"
+		],
+		lines: [
+			"非住用過61米，地積係咪三類都15？上蓋我記得唔係同一個數。",
+			"同事用住用嗰套8、9、10去計商場。我話你計緊錯表。",
+			"15米以下非住用上蓋可以好盡，但地積先係5。有人兩樣調轉背。"
+		],
+		keywords: "非住用 non-domestic 地積15 上蓋60 62.5 65 附表1"
+	},
+	{
+		id: "composite-pr",
+		topic: "planning",
+		importance: 5,
+		code: "B(P)R",
+		ref: "第21條",
+		title: "綜合用途唔可以搶15",
+		point: "綜合用途建築物嘅地積，係住用部分同非住用部分分開計：各自實際地積除以該類許可地積，兩邊比例加埋唔可以超過1。",
+		detail: "全棟當非住用去搶地積15，係經典錯法。上蓋亦都係住用部分同非住用部分各自對自己嗰個許可上蓋。平台商場加住宅先要套公式，唔係『感覺未超』。",
+		sourceUrl: SRC.bpr,
+		sourceLabel: "Cap. 123F 第21條",
+		traps: [
+			"綜合樓全棟當非住用地積15",
+			"只計住宅唔計商場",
+			"兩個地積直接相加就當上限"
+		],
+		lines: [
+			"平台商場加上面住宅。有人話全棟跟非住用，地積15。我記得要按比例加，加埋唔可以超過1。",
+			"QS問我：住宅用咗八成住用地積，商場仲可以剩幾多非住用？我唔想即場心算錯。",
+			"綜合樓最毒係兩份圖各自『未超』，拼埋先爆。"
+		],
+		keywords: "綜合用途 composite plot ratio 比例 商場 住宅 GFA"
+	},
+	{
+		id: "site-class",
+		topic: "planning",
+		importance: 5,
+		code: "B(P)R",
+		ref: "第18A條",
+		title: "甲乙丙類地盤",
+		point: "甲類係唔屬於乙類或丙類嘅地盤，通常只靠一條街。乙類係貼兩條街嘅角落地盤。丙類係貼三條街。計落類別嘅街，闊度一般唔少過4.5米；服務巷唔等於街。",
+		detail: "類別直接決定附表1用邊一欄。圖上畫多條『巷』就自稱丙類，係補料熱門原因。定義以第18A條正文為準，街是否算數亦要睇寬度同位置。",
+		sourceUrl: SRC.bpr,
+		sourceLabel: "Cap. 123F 第18A條",
+		traps: [
+			"有後巷就當丙類",
+			"兩條街唔理4.5米都當乙類",
+			"甲類即係最盡"
+		],
+		lines: [
+			"地盤貼一條大路加一條好窄嘅巷。判頭話呢個係乙類，我話你想乙類想瘋咗。",
+			"甲乙丙類我識背，但『邊條先算街』先係交圖先死嘅位。",
+			"服務巷係服務巷。唔好寫進地盤類別度充數。"
+		],
+		keywords: "甲類 class A 乙類 丙類 4.5米 角落 島型 site classification 18A"
+	},
+	{
+		id: "app5-height",
+		topic: "pnap",
+		importance: 4,
+		code: "APP-5",
+		ref: "B(P)R 第3(3)、24條",
+		title: "樓高唔係量到天線",
+		point: "入附表1之前，建築物高度點樣度有定義。天台構架、機房、層高，唔係你影張相由街量到最高件鐵就當表入面嗰個高度。APP-5 講層高同相關規例。",
+		detail: "高度用錯一檔，地積同上蓋可以成欄搬錯。先定高度，再揀類別，再查住用定非住用。次序反轉就會同屋宇署各說各話。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-5",
+		traps: [
+			"由地面量到天線當高度",
+			"機房一律計入高度",
+			"層高冇下限上限"
+		],
+		lines: ["天台有水箱有鐵架。高度我應該量去邊？量錯一米可能入錯一欄附表。", "APP-5 有人當閒書。我覺得佢係附表1嘅說明書。"],
+		keywords: "高度 storey height APP-5 機房 天台 附表"
+	},
+	{
+		id: "window-fraction",
+		topic: "planning",
+		importance: 4,
+		code: "B(P)R",
+		ref: "天然採光及通風",
+		title: "十分一同一十六分一",
+		point: "住用房間嘅經典背法：玻璃面積唔少過樓面十分一，可開啟面積唔少過十六分一。但窗要面向合規格嘅露天空間（街、後巷或符合規定嘅露天），唔係有塊玻璃就合格。",
+		detail: "面向窄井、對面牆太近、或者只係機械送風，都唔可以靠背兩個分數蒙混。適用邊類房間、矩形平面點樣度，以規劃規例正文為準。",
+		sourceUrl: SRC.bpr,
+		sourceLabel: "Cap. 123F",
+		traps: [
+			"有窗就當有採光",
+			"十分一只計可開部分",
+			"廚房廁所用同一套分數硬套"
+		],
+		lines: ["單位窗好細但『有窗』。十分一同十六分一我識背，面向嗰舊空地先係會出事嘅位。", "新人用窗面積除樓面，除完大於0.1就話交得。我問佢窗望落去係咩。佢靜咗。"],
+		keywords: "採光 通風 1/10 1/16 prescribed window 窗 露天"
+	},
+	{
+		id: "adv30-mv",
+		topic: "pnap",
+		importance: 3,
+		code: "ADV-30",
+		ref: "B(P)R 第34條",
+		title: "機械通風唔係萬能替代",
+		point: "機械通風係規例允許嘅一條路，唔係『自然採光做唔到就全部改風機』。ADV-30 講 B(P)R 第34條之下點樣用機械通風，有適用範圍。",
+		detail: "交圖寫 MV 兩個字唔等於採光規例消失。邊類房間可以、風量同後備，要跟實務說明同規例，唔好用商場嗰套抄去住宅。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP ADV-30",
+		traps: [
+			"所有房間都可以棄自然通風",
+			"有風機就唔使窗",
+			"第34條等於冇限制"
+		],
+		lines: ["設計師話內房全部機械通風，窗只係裝飾。第34條真係咁寬？", "ADV-30 我當救命，但唔想變成走精。"],
+		keywords: "機械通風 mechanical ventilation ADV-30 regulation 34"
+	},
+	{
+		id: "gfa-app2",
+		topic: "pnap",
+		importance: 5,
+		code: "APP-2",
+		ref: "B(P)R 第23(3)(a)、(b)條",
+		title: "邊度先唔計GFA",
+		point: "唔計入總樓面面積嘅部分，要符合 B(P)R 第23(3)(a)或(b)條同 APP-2，唔係『機房、空隙、平台』六個字就自動豁免。APP-2 現行說明到2025年11月仍在更新。",
+		detail: "豁免多數有條件：用途、高度、位置、可否改作其他用途、有冇頂。圖則標 non-accountable 之前，先對一次 APP-2 嘅清單同限制，唔好沿用十年前嘅內部樣本。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-2",
+		traps: [
+			"所有機房都不計GFA",
+			"空隙一律豁免",
+			"舊圖則豁免可以原封不動抄"
+		],
+		lines: [
+			"機房、水缸、平台空位。QS已經當全部唔計GFA。我只敢講：去翻 APP-2。",
+			"第23(3)條唔係一張萬用豁免券。有人當係。",
+			"2025年11月 APP-2 先改過。你本影印筆記可能已經過期。"
+		],
+		keywords: "GFA 總樓面 豁免 non-accountable APP-2 23(3) 機房"
+	},
+	{
+		id: "app19-projection",
+		topic: "pnap",
+		importance: 4,
+		code: "APP-19",
+		ref: "B(P)R 第20、21條",
+		title: "飄出街計唔計上蓋",
+		point: "檐篷、露台、突出街上空嘅部分，計唔計入上蓋同地積，跟 APP-19 同規劃規例第20、21條，唔係『突出少少冇事』。突出街道本身亦受規劃規例第二部限制。",
+		detail: "美觀線同結構線可以唔同。QS要面積，AP要合法性，兩條數分開。舊樓改建最易將原本突出部分當既有權利無限放大。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-19",
+		traps: [
+			"露台一律不計",
+			"突出街道只要業主同意",
+			"上蓋只計柱牆內"
+		],
+		lines: ["露台突出邊界。一個話係設施唔計，一個話全數計入上蓋。APP-19 喺中間，唔係喺你心情中間。", "第20、21條係上蓋同地積。突出街係另一組規例。有人拼埋當一條。"],
+		keywords: "露台 balcony 檐篷 projection APP-19 上蓋 突出街道"
+	},
+	{
+		id: "app42-amenity",
+		topic: "pnap",
+		importance: 4,
+		code: "APP-42",
+		ref: "設施同GFA寬減",
+		title: "設施寬減有帽",
+		point: "康樂同某些設施可以申請不計或寬減總樓面，但 APP-42 有資格、面積上限同設計條件。畫個會所就當全部豁免，係交圖常見中招位。",
+		detail: "寬減係建築事務監督酌情下嘅做法，要同時滿足其他政策（包括可持續建築設計一類要求）先至有得談。唔係圖例寫 amenity 就結束。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-42",
+		traps: [
+			"會所全部不計GFA",
+			"寬減沒有百分比上限",
+			"住客會所等於法定空地"
+		],
+		lines: ["發展商想會所、空中花園全部唔計GFA。我話 APP-42 有帽，佢話你唔識做生意。", "設施寬減同第23(3)條豁免，兩套邏輯。唔好用同一句『唔計啦』打發。"],
+		keywords: "amenity 會所 GFA concession APP-42 寬減"
+	},
+	{
+		id: "app152",
+		topic: "pnap",
+		importance: 5,
+		code: "APP-152",
+		ref: "可持續建築設計",
+		title: "SBD三件事",
+		point: "APP-152 有三樣：建築物分隔、建築物退縮、綠化上蓋。分隔適用於地盤2萬平方米或以上，或者連續投影立面長度 Lp 達60米或以上。綠化上蓋：1千至2萬平方米地盤，主區10%、整體20%；2萬或以上，主區15%、整體30%。活動花盆唔計。",
+		detail: "分隔嘅透風率 P：樓高60米或以下，一般每個投影面最少20%；2萬平方米或以上地盤另一面去到25%。樓高超過60米，大地盤另一面去到33.3%。面向窄街先至要做退縮，補償條件入面常見『退縮面積唔少過地盤15%』。單幢獨立屋可以唔使做綠化上蓋。細節以 APP-152 正文同附錄為準。",
+		sourceUrl: SRC.app152,
+		sourceLabel: "PNAP APP-152",
+		traps: [
+			"所有地盤都要做20%透風",
+			"天台盆栽當綠化上蓋",
+			"ADV-35 綠化等於過到 APP-152"
+		],
+		lines: [
+			"Lp 59米同61米，分隔要求可以係兩個世界。有人用『差不多60』去交圖。",
+			"綠化上蓋10%同20%我分到主區同整體。花槽係買返嚟擺，算唔算？我話唔算。",
+			"ADV-35 叫你綠化。APP-152 先至係要交到嘅數。兩份嘢唔好混。"
+		],
+		keywords: "SBD APP-152 分隔 setback 退縮 綠化 greenery Lp 60米 透風率 20000"
+	},
+	{
+		id: "fs-map",
+		topic: "fire",
+		importance: 4,
+		code: "FS Code 2011",
+		ref: "A至G部",
+		title: "消防守則唔係一本走火",
+		point: "《建築物消防安全守則》2011：A部引言同用途類別；B部逃生途徑；C部耐火結構；D部消防和救援通道（包括消防員升降機、救援樓梯、EVA）；E部構件耐火表現；F部消防安全管理；G部消防工程。",
+		detail: "守則係為符合《建築物（建造）規例》第90條同《建築物（規劃）規例》第41條等要求而發。而家流通嘅有2024年版編排，引用時寫明版本。三本舊守則（1996走火、1996耐火、2004通道）已被呢本取代。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code 2011",
+		traps: [
+			"FS Code 只係走火",
+			"1996 MOE code 仍然係現行主守則",
+			"G部係可以唔交MOE"
+		],
+		lines: ["有人話 FS Code 即係舊嗰本走火守則換封面。A到G部佢講唔出。", "C部同B部打架點算？一個講隔住，一個講走得出。兩樣都要。"],
+		keywords: "FS Code 消防安全守則 Part B C D means of escape FRC EVA"
+	},
+	{
+		id: "occupant",
+		topic: "fire",
+		importance: 5,
+		code: "FS Code",
+		ref: "表 B1 · B4條",
+		title: "人數係除出嚟",
+		point: "容納人數跟表 B1 嘅人均面積，唔係估。辦公室（用途類別4a）常見係9平方米一人。商店地下至二樓連地庫一類零售常見3平方米一人，三樓及以上4.5。餐廳、酒吧一類可以密到約0.5平方米一人。住宅有走廊通道、每梯每層五伙或以上，常見4.5；其他住宅單位常見9；唐樓一類可以密到3。",
+		detail: "人數錯，後面條樓梯闊度、出口數目、走火距離全條鏈錯。同一幢樓唔同樓層商店係數可以唔同。以你用緊嗰版守則嘅表 B1 為準，唔好背完唔對欄。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code 表 B1",
+		traps: [
+			"全棟用9平方米一人",
+			"餐廳用辦公室係數",
+			"人數靠業主話有幾多張椅"
+		],
+		lines: [
+			"餐廳用9平方米一人去計走火。琳琳見到會唔會當我未讀表 B1。",
+			"商店三樓同地下，人均面積唔係同一個數。我舊時當全場3平方米。",
+			"住宅4.5定9，視乎係咪走廊型、每層幾多伙。唔好見單位就寫9。"
+		],
+		keywords: "occupant capacity 表B1 9平方米 餐廳 0.5 商店 人數"
+	},
+	{
+		id: "travel",
+		topic: "fire",
+		importance: 5,
+		code: "FS Code",
+		ref: "B11條",
+		title: "行走距離唔好背一個36",
+		point: "有兩條或以上防護出口時，最大行走距離：用途類別1同2，由單位或客房出口門到最近規定樓梯24米，露台通道可以去到45米；用途類別3到最近防護出口30米，露台通道45米；其他用途到最近防護出口36米，露台通道45米。兩條規定樓梯（或排放點）之間沿走火路線嘅水平距離唔超過48米。",
+		detail: "盡頭路係另一組限制。用途類別1同2，單位或客房內任何一點到該單位出口門唔超過24米。其他類別嘅盡頭路米數唔好用36米去套，翻 B11.2。測量沿實際路線，唔係拉直線穿過牆。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code B11",
+		traps: [
+			"所有用途行走距離都係36米",
+			"48米係行走距離",
+			"盡頭路等於最大行走距離"
+		],
+		lines: [
+			"36米呢個數我背到滾瓜爛熟。今日先有人話住宅唔係由單位入面開始量24米去樓梯。",
+			"兩條梯中間48米，同行走距離36米，我以前當同一個數。",
+			"露台通道45米唔係你加個花槽就叫 balcony approach。"
+		],
+		keywords: "行走距離 travel distance 24米 36米 45米 48米 dead end 盡頭 B11"
+	},
+	{
+		id: "discharge",
+		topic: "fire",
+		importance: 5,
+		code: "FS Code",
+		ref: "B12條 · 表 B3、B4",
+		title: "樓梯闊度唔係5毫米一人",
+		point: "規定樓梯嘅疏散人數要查表，唔係用英國 Approved Document B 嘅5毫米一人。最低一檔闊度由1050毫米起。無花灑、1050至1200毫米、服務1層：210人（表 B3）。同一格有花灑：420人（表 B4）。多一層唔係人數倍增，係加一個較細嘅增量。",
+		detail: "花灑可以加疏散數值，但唔會取消行走距離同隔火。部分樓層有花灑、部分冇，而且樓梯冇分開，要按守則嗰種情況由表 B3 評估。出口門闊度係另一張表（表 B2），唔好用樓梯表去量門口。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code 表 B3 / B4",
+		traps: [
+			"5毫米一人照搬香港",
+			"有花灑就樓梯可以窄過1050",
+			"一條梯嘅人數可以無限加層倍增"
+		],
+		lines: [
+			"有人用5毫米一人計香港走火梯。我話你本係英國書。佢話消防唔通有國界。",
+			"1050闊、無花灑、一層，210人。有花灑變420。我怕自己記反表 B3 同 B4。",
+			"加多十層唔係人數乘十。表入面每一層只加一個增量。有人唔信。"
+		],
+		keywords: "discharge value 疏散數值 1050 表B3 表B4 花灑 210 420 樓梯闊度"
+	},
+	{
+		id: "one-stair",
+		topic: "fire",
+		importance: 5,
+		code: "FS Code",
+		ref: "B6條",
+		title: "一條梯有好多但書",
+		point: "只得一條規定樓梯嘅建築物：唔超過6層，而且最高樓層離排放點地面唔超過17米；用途只限住宅或辦公室，地下可以係商店或停車場。最高樓面離地唔超過13米時，地上每層可用樓面唔超過250平方米。超過13米就不超過150平方米，而且每層要經防護大堂先入樓梯、樓梯去到天台、天台要有按人數計唔少過每人0.5平方米嘅平臺避難位。",
+		detail: "一條梯唔係細樓嘅默認。層數、高度、面積、用途、大堂、天台五樣有一件唔中，就係兩條梯嘅世界。天台面積用表 B1 嘅地上總人數計，唔係用業主覺得幾多人。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code B6",
+		traps: [
+			"6層就一定可以一條梯",
+			"250平方米用到17米都得",
+			"天台有門就當有避難"
+		],
+		lines: [
+			"6層高、最高17米、一條梯。我記得仲有面積250同150條線，13米係分界。",
+			"地下做舖、上面寫字樓，有人話一條梯違法。我話要睇高同面積。",
+			"天台避難位係每人0.5平方米，唔係擺到兩張椅就叫 refuge。"
+		],
+		keywords: "一條樓梯 single staircase B6 17米 250 150 13米 防護大堂"
+	},
+	{
+		id: "refuge",
+		topic: "fire",
+		importance: 5,
+		code: "FS Code",
+		ref: "B18條",
+		title: "25層同避難層",
+		point: "建築物超過最低地面層以上25層，就要按 B18 設避難層。常見設計條件：避難淨面積唔少過該層總樓面面積一半、淨高唔少過2300毫米、最少兩邊相對開揚（安全矮牆之上）、經過嘅規定樓梯要喺呢層中斷，迫人行過避難區再落。",
+		detail: "層與層之間隔幾多層有用途類別之分，常見講法係用途類別6約20層、其他約25層，必須對現行 B18 正文。住用或綜合、超過25層但唔超過40層，有條件可以用符合 B18.3 同 B18.4 嘅主天台做避難層，唔係有天台就自動合格。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code B18",
+		traps: [
+			"有天台就唔使避難層",
+			"避難層可以全層密封玻璃",
+			"25層由天台倒數"
+		],
+		lines: [
+			"超過25層先講避難層。有人由天台開始數，有人由最低街面數。我跟『最低地面層以上』。",
+			"避難層一半面積、兩邊開揚、樓梯要斷開。三樣缺一，有人仲叫佢做 refuge floor。",
+			"25至40層住用，天台有條件頂住一個避難層。唔係所有天台都得。"
+		],
+		keywords: "避難層 refuge floor 25層 50% 2300 B18 開揚"
+	},
+	{
+		id: "eva",
+		topic: "fire",
+		importance: 4,
+		code: "FS Code",
+		ref: "D22條 · B(P)R 第41D條",
+		title: "消防車去到先算",
+		point: "緊急車輛通道 EVA：行車道闊度一般唔少過7.3米，或者6米硬地；淨高唔少過4.5米；斜度一般唔陡過1:10；車輛通道到外牆水平距離唔超過10米。要容納約30噸、迴轉相關尺度（守則提到約26米迴轉圓、車長約12米）嘅操作位。",
+		detail: "種滿樹、閘桿、檐篷淨高唔夠、或者『街道紙上有、地面上係私家車位』，都係交樓先爆。斜度同淨高係現場先量到。D部係救援通道，唔係園景圖。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code D22",
+		traps: [
+			"有馬路就有EVA",
+			"6米同7.3米可以任揀唔理硬地",
+			"淨高只計樓底唔計突出物"
+		],
+		lines: [
+			"EVA 7.3米同6米硬地，兩個數有人當同一個。淨高4.5有檐篷先知死。",
+			"到外牆10米。園境將消防車路推去12米，話樹更重要。",
+			"1:10 呢條斜路，地盤話差少少消防車都上到。守則唔係咁寫。"
+		],
+		keywords: "EVA 緊急車輛通道 7.3米 4.5米 1:10 10米 D22"
+	},
+	{
+		id: "table-d1",
+		topic: "fire",
+		importance: 4,
+		code: "FS Code",
+		ref: "D部 · 表 D1",
+		title: "30米唔好背半句",
+		point: "要走火樓梯、消防員升降機，定係消防和救援樓梯，睇表 D1：高度、用途、地庫體積會同時決定。30米呢條線好多人背，但係成張表先有意義，唔好背『30米要升降機』半句就去畫圖。",
+		detail: "地庫超過兩層、體積超過7000立方米一類情況，表入面有獨立要求。消防員升降機大堂亦有細尺寸（守則有大堂面積同短邊嘅下限）。升降機大堂唔係普通候梯廳改個名。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code 表 D1",
+		traps: [
+			"30米以上先要任何消防通道",
+			"所有樓都要救援樓梯",
+			"候梯廳改名就係消防大堂"
+		],
+		lines: [
+			"30米。全個茶水間只記得呢個數。表 D1 其他行冇人翻。",
+			"地庫體積7000立方米呢個門檻，有人用層數代替。",
+			"消防員升降機大堂要有尺寸，唔係有道防火門就交差。"
+		],
+		keywords: "表D1 消防員升降機 fireman's lift 救援樓梯 30米 7000"
+	},
+	{
+		id: "frr",
+		topic: "fire",
+		importance: 4,
+		code: "FS Code",
+		ref: "C部 · E部",
+		title: "60/60/60 三個數唔係裝飾",
+		point: "耐火時效寫成穩定性／完整性／隔熱性，例如60/60/60或120/120/120。三個數對應唔同測試要求。開口、門、管洞穿過隔火牆，要按 E部保護，唔係牆身合格就當成個間隔合格。",
+		detail: "間隔體積同高度會影響時效同區間上限，數值表在 C部，唔好全棟抄同一個 FRR。防火門 FD30、FD60 要連門框、閉門器、煙封一齊先係個系統。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code C部 / E部",
+		traps: [
+			"FRR只係牆先要",
+			"防火門有證書就唔使閉門器",
+			"管洞可以後補冇事"
+		],
+		lines: ["60/60/60 三個數我識讀。現場先至見人將冷氣洞打穿隔火牆，話最後先封。", "防火門證書係門扇。門框同閉門器有人覺得係裝潢。"],
+		keywords: "FRR 耐火 60/60/60 防火門 compartment 隔火 FD30"
+	},
+	{
+		id: "part-g",
+		topic: "fire",
+		importance: 3,
+		code: "FS Code",
+		ref: "G部",
+		title: "消防工程唔係跳過B部",
+		point: "G部係消防工程設計嘅框架：要有評估報告、邊界條件、子系統同埋失效時點樣仍然安全。佢唔係『用模擬取代所有逃生規定』嘅捷徑。",
+		detail: "走性能化之前，先搞清楚邊條規範規定做唔到、替代方案點樣證明唔差過。邊界條件寫進報告，營運改動（例如加鎖、改用途）可以令個方案失效。F部嘅管理計劃就係唔好讓人把走火門鎖上。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code G部",
+		traps: [
+			"有CFD就唔使守則",
+			"性能化等於自行降低標準",
+			"邊界條件只係交圖用"
+		],
+		lines: ["顧問話G部可以幫我哋唔做兩條梯。我聽到已經開始出汗。", "性能化最怕交完圖，營運將走火通道改成貨倉。邊界條件即刻死。"],
+		keywords: "fire engineering 性能化 FSAR G部 CFD 邊界條件"
+	},
+	{
+		id: "cinema",
+		topic: "fire",
+		importance: 3,
+		code: "FS Code",
+		ref: "B部第3節 · APP-14",
+		title: "戲院唔係普通舖",
+		point: "用途類別5a（戲院、劇場一類）有專用逃生規定：座位排距、出口、樓梯、樓座。再加 APP-14 講非住用或綜合樓入面嘅公眾娛樂場所。用商店嘅人數同走火去套戲院，一定錯。",
+		detail: "牌照部門有自己嘅指引（守則附件 A 有清單）。BD 守則合格唔等於牌照自動到手，但牌照圖亦唔可以違反建築物消防規定。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code · APP-14",
+		traps: [
+			"戲院用商店3平方米一人就夠",
+			"有牌照就唔使FS Code",
+			"座位排數可以不限"
+		],
+		lines: ["商場入面間戲院。有人用商店走火交差，話入面的人會自己走出街。", "APP-14 同 B部第3節要一齊翻。只看其中一本會補料。"],
+		keywords: "戲院 cinema 5a APP-14 公眾娛樂 座位"
+	},
+	{
+		id: "bfa-reg72",
+		topic: "access",
+		importance: 5,
+		code: "B(P)R",
+		ref: "第72條 · 附表3 · APP-41",
+		title: "無障礙係規例，唔係好心",
+		point: "規劃規例第72條同附表3係私人樓宇無障礙通道嘅法定要求。APP-41 指向《設計手冊：暢通無阻通道2008》（最新有2025年版）。《殘疾歧視條例》第84條亦限制建築事務監督在通道未合理解決之前批圖。",
+		detail: "手冊入面有 obligatory 同 recommended。交圖最低限度跟法定同 obligatory。recommended 唔等於可以當佢冇，但亦唔好將所有建議當成立即違法。豁免要按個別情況申請，唔係口頭『舊樓冇位』。",
+		sourceUrl: SRC.bfa,
+		sourceLabel: "Design Manual BFA 2008",
+		traps: [
+			"無障礙只係政府樓先要",
+			"recommended 全部當法定",
+			"舊樓自動豁免"
+		],
+		lines: ["私人住宅有人話第72條唔關事。APP-41 寫到明係私人樓。", "手冊有建議有強制。全份當建議，交圖會爽一次、補一次。"],
+		keywords: "無障礙 BFA reg 72 APP-41 殘疾歧視條例 設計手冊 obligatory"
+	},
+	{
+		id: "dmua-2026",
+		topic: "access",
+		importance: 5,
+		code: "APP-176",
+		ref: "DMUA 2026 · 2026年9月",
+		title: "DMUA出咗，規例未消失",
+		point: "2026年9月 APP-176：通用無障礙設計手冊 DMUA 係將 BFA 2008 手冊重整同擴充。第72、73條同附表3、4仍然係法定要求。DMUA 入面尚未寫進規例嘅部分，而家係鼓勵採用，唔係自動取代法例。",
+		detail: "即係：法定嗰截繼續要守；DMUA 多出嚟嘅通用設計，AP 被鼓勵盡量做，亦可以俾意見屋宇署。舊樓改建如果空間或結構做唔到，DMUA 有實務替代（手冊約11.6段），豁免仍然要個別申請。而家最錯係兩極：當 DMUA 已經廢除 BFA 法例，或者當 APP-176 可以當冇睇過。",
+		sourceUrl: SRC.app176,
+		sourceLabel: "PNAP APP-176",
+		traps: [
+			"DMUA 已經取代第72條",
+			"APP-41 可以掉",
+			"DMUA 全部都係強制"
+		],
+		lines: [
+			"2026年9月先出 APP-176。組裡有人話 BFA 2008 即刻作廢，第72條唔使跟。我覺得佢想補料到年底。",
+			"DMUA 同 DMBFA 同時出現喺屋宇署網頁。交圖跟邊本？我而家嘅理解係：法例照跟，新手冊盡量跟。",
+			"舊樓加建，空間真係轉唔到一架輪椅。呢個先至係申請豁免嘅起點，唔係起點之前已經當自己批咗。"
+		],
+		keywords: "DMUA 2026 APP-176 BFA 通用無障礙 第72條 第73條"
+	},
+	{
+		id: "ramp",
+		topic: "access",
+		importance: 4,
+		code: "BFA / DMUA",
+		ref: "斜道同門口",
+		title: "1:12 唔係建議斜少少",
+		point: "無障礙斜道最陡一般係1:12，而且有長度同分級平台限制。再陡就係爬坡，唔係通道。門口淨闊、把手、門檻，按設計手冊嘅強制條款，唔好用『差20毫米使用者會原諒』。",
+		detail: "斜道兩旁扶手、平台尺寸、轉彎位，係成個系統。只將地板斜住1:12、其餘用普通走廊標準，檢查會逐項打回頭。確切毫米數以你採用嗰版手冊嘅 obligatory 圖則為準。",
+		sourceUrl: SRC.bfa,
+		sourceLabel: "BFA 2008 設計手冊",
+		traps: [
+			"1:10 都叫無障礙斜道",
+			"斜道唔使平台",
+			"門口減20毫米先至美觀"
+		],
+		lines: ["園境想斜道陡少少，話1:12太長、食地位。我話食地位係對的，陡就唔係通道。", "門檻高過手冊，話現場收口冇辦法。無障礙最憎呢句。"],
+		keywords: "斜道 1:12 ramp 門口 無障礙 輪椅"
+	},
+	{
+		id: "access-toilet",
+		topic: "access",
+		importance: 4,
+		code: "BFA · Cap. 123I",
+		ref: "無障礙廁所",
+		title: "廁所要同時過兩關",
+		point: "無障礙廁所要滿足暢通通道手冊嘅空間、扶手、門向同迴轉；潔具『數量夠唔夠』先係 Cap. 123I 嘅表。兩份同時合格，先至係個廁所。",
+		detail: "將無障礙廁所塞進樓梯底、門開出嚟撞人、或者用普通廁格貼張輪椅標誌，都係常見退圖原因。位置要喺無障礙路線上面，唔係喺入到先發現有級。",
+		sourceUrl: SRC.sani,
+		sourceLabel: "Cap. 123I · BFA",
+		traps: [
+			"有個大廁格就等於無障礙",
+			"123I 數量夠就唔使手冊",
+			"無障礙廁所可以唔喺無障礙路線上"
+		],
+		lines: ["潔具數量表過咗，無障礙廁所入面轉唔到身。發叔話渠務冇責，嘉嘉話你有。", "樓梯底挖個廁所，淨高同門向一齊死。有人仲覺得慳到位好叻。"],
+		keywords: "無障礙廁所 accessible toilet 123I 扶手 迴轉"
+	},
+	{
+		id: "cap-mixup",
+		topic: "process",
+		importance: 5,
+		code: "Cap. 123",
+		ref: "F、B、I 唔好調轉",
+		title: "123F 唔係建造規例",
+		point: "Cap. 123F 係《建築物（規劃）規例》：地積、上蓋、走火相關規劃、無障礙。Cap. 123B 係《建築物（建造）規例》：物料、結構、耐火建造（包括第90條）。Cap. 123I 係衛生設備、水管、排水同廁所規例，唔係建造規例。",
+		detail: "章號寫錯，成段論點會指向錯誤文本。主體係 Cap. 123《建築物條例》。小型工程有自己嘅附屬規例，亦都唔係第123I條。引用前打開電子版核一次章號，十秒可以少一次當眾出醜。",
+		sourceUrl: SRC.bo,
+		sourceLabel: "電子版法例 Cap. 123",
+		traps: [
+			"123I 當建造規例",
+			"123F 當施工規例",
+			"所有附屬規例都叫規劃規例"
+		],
+		lines: [
+			"有份筆記寫『建造規例 Cap. 123I』。我差啲抄低。123I 係廁所同渠，建造係123B，規劃係123F。",
+			"第90條耐火建造喺邊本？有人翻開123F搵到眼花。佢喺建造規例。",
+			"章號寫錯唔係打字手誤，係你引緊另一本法律。"
+		],
+		keywords: "123F 123B 123I 規劃規例 建造規例 衛生設備 章號"
+	},
+	{
+		id: "s14-consent",
+		topic: "process",
+		importance: 5,
+		code: "建築物條例",
+		ref: "第14條",
+		title: "未批未同意，唔好開工",
+		point: "除條例豁免嘅工程外，建築工程要先有圖則批准同開工同意，先可以做。第14條係地盤最貴嘅一句。批咗圖未同意開工，仍然未可以起。",
+		detail: "豁免工程、小型工程、同『全份批准加同意』，係三條唔同路徑。判頭口中的『小事』未必係法律上的小事。私自改圖施工，之後先補圖，風險在業主、AP 同承建商身上，唔係補到就當冇發生。",
+		sourceUrl: SRC.bo,
+		sourceLabel: "Cap. 123 第14條",
+		traps: [
+			"批圖等於可以開工",
+			"細工程一律豁免",
+			"先做後補圖沒有後果"
+		],
+		lines: ["圖批咗。判頭問聽日可唔可以落石矢。我話同意書呢？佢當我搵佢麻煩。", "第14條兩樣嘢：批准，同同意。少一樣都唔好開工。"],
+		keywords: "第14條 approval consent 開工 批准 同意"
+	},
+	{
+		id: "op",
+		topic: "process",
+		importance: 5,
+		code: "建築物條例",
+		ref: "第21條 · APP-13",
+		title: "未有OP，唔好住人",
+		point: "新建築物占用之前要有占用許可證。APP-13 講完工證明、申請 OP、紀錄圖則同資料。冇 OP 就交鎖匙，係另一種貴。",
+		detail: "OP 唔係消防紙或者滿意紙嘅別名。機電、消防裝置、渠務、地面情況可以各自卡你。紀錄圖則要反映真正建成果，唔係將批准圖改個日期。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-13",
+		traps: [
+			"滿意紙等於OP",
+			"可以先入伙後補OP",
+			"紀錄圖用批准圖交差"
+		],
+		lines: ["業主問消防滿意係咪等於可以入伙。我差啲點頭。差啲。", "APP-13 唔係交樓流程表嘅裝飾。冇 OP 就係未交到俾人住。"],
+		keywords: "OP occupation permit 第21條 APP-13 入伙 占用許可證"
+	},
+	{
+		id: "adm2",
+		topic: "process",
+		importance: 3,
+		code: "ADM-2",
+		ref: "中央處理",
+		title: "一份圖，多個部門",
+		point: "中央處理係將圖則轉去相關部門一齊看，唔係屋宇署一個圖章代表所有部門。ADM-2 講呢個做法。你仍然要對應每個部門嘅意見改圖。",
+		detail: "消防、渠務、路政、規劃意見可以先後返嚟。『BD 過咗』唔等於地政租契條件或者分區計劃大綱亦過咗。租契地積可以嚴過規劃規例附表，兩邊取更嚴。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP ADM-2",
+		traps: [
+			"中央處理即係只交BD",
+			"規例地積一定等於租契地積",
+			"一個部門意見代表全部"
+		],
+		lines: ["中央處理交一次就埋單？第三次補料之後冇人再講呢句。", "租契寫死嘅地積比附表1細。有人仲係用附表去同業主畫大餅。"],
+		keywords: "中央處理 ADM-2 補料 租契 地積 部門"
+	},
+	{
+		id: "adm19",
+		topic: "process",
+		importance: 3,
+		code: "ADM-19",
+		ref: "批准流程",
+		title: "流程本身有說明書",
+		point: "ADM-19 講建築批准流程。連同 ADM-14 嘅小改、ADM-22 撤回再交，都係程序，唔係人情。錯過表格或者改動算唔算 minor amendment，會直接影響你排緊邊條隊。",
+		detail: "程序PNAP（ADM 系列）同技術PNAP（APP 系列）分開。技術做對、表格填錯，一樣可以停喺收件處。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP ADM-19",
+		traps: [
+			"改一行字一定係小改",
+			"流程靠問人唔使看ADM",
+			"撤回再交沒有後果"
+		],
+		lines: ["我哋改咗平面『少少』。算唔算 ADM-14 嘅小改，定係要抽返出嚟？有人用感覺判斷。", "ADM 同 APP 分唔清嘅人，通常兩樣都未讀。"],
+		keywords: "ADM-19 批准流程 minor amendment ADM-14 撤回"
+	},
+	{
+		id: "minor-works",
+		topic: "works",
+		importance: 4,
+		code: "小型工程",
+		ref: "三級管制",
+		title: "小型唔等於冇管制",
+		point: "小型工程分第I、II、III級。級別愈高，工程愈重大，人員同程序愈嚴。第III級多數可以由註冊小型工程承建商做、按規定通知，而唔使每次走完整份批准加同意。但仍然係受管制工程，唔係豁免到冇人理。",
+		detail: "冷氣架、招牌、簷篷、間隔改動，往往落在某一項入面。項目前後差一級，責任人同是否要事先批准可以完全不同。對照現行《建築物（小型工程）規例》嘅附表，唔好靠師傅記得『以前唔使報』。",
+		sourceUrl: SRC.bo,
+		sourceLabel: "建築物條例 · 小型工程",
+		traps: [
+			"第III級等於違法都冇事",
+			"所有改動都係小型工程",
+			"豁免工程同小型工程係同一樣"
+		],
+		lines: [
+			"業主話換個冷氣架小事。木叔第一句唔係報價，係問第幾級。",
+			"小型工程三級。有人以為III級即係三不管。",
+			"豁免、小型、完整批准。三條路。行錯一條就係第14條嘅事。"
+		],
+		keywords: "小型工程 minor works 第I級 第III級 冷氣架 招牌 MW"
+	},
+	{
+		id: "mbis",
+		topic: "works",
+		importance: 3,
+		code: "MBIS / MWIS",
+		ref: "強制驗樓、驗窗",
+		title: "30年唔係自願檢查",
+		point: "強制驗樓計劃針對一定樓齡（一般講30年或以上，有豁免類別）嘅私人樓，由註冊檢驗人員檢查同監督修葺。強制驗窗係另一個計劃，窗同樓可以唔係同一張通知。",
+		detail: "收到通知先開始計時，唔係樓齡一到自動合規。檢驗、報告、修葺、完工核證係一條鏈。公營房屋有自己嘅維修制度，唔好將 MBIS 表格硬套去每一種樓。",
+		sourceUrl: SRC.bo,
+		sourceLabel: "Cap. 123 · MBIS / MWIS",
+		traps: [
+			"30年樓自動違例",
+			"驗窗包含在驗樓不用另做",
+			"任何人都可簽署MBIS"
+		],
+		lines: ["業主收到驗樓通知，話大廈每年都有做檢查，應該唔使理。註冊檢驗人員四個字佢聽完先靜。", "驗窗同驗樓兩封信。有人掉咗其中一封，話應該係重複。"],
+		keywords: "MBIS MWIS 強制驗樓 驗窗 註冊檢驗人員 30年"
+	},
+	{
+		id: "sani-count",
+		topic: "sanitary",
+		importance: 4,
+		code: "Cap. 123I",
+		ref: "潔具數量 · ADV-28",
+		title: "廁所數量有表",
+		point: "洗手盆、廁所、尿廁嘅數目按用途同人數查 Cap. 123I，寫字樓、商店、食肆、娛樂場所係數唔同。ADV-28 補充辦公室、商場、戲院等公眾地方點樣提供。",
+		detail: "男女比例、職員同顧客能不能共用，表入面有講，唔好用『附近商場都係咁少』做理據。無障礙潔具係額外要滿足嘅設計，唔可以佔用完數量就當無障礙亦合格。",
+		sourceUrl: SRC.sani,
+		sourceLabel: "Cap. 123I",
+		traps: [
+			"所有用途共用一套潔具比例",
+			"男廁尿廁可以全部改坐廁仍當符合",
+			"數量夠就不需要無障礙廁所"
+		],
+		lines: ["食肆用寫字樓嘅潔具表。發叔問我係咪覺得食客唔去廁所。", "ADV-28 同 123I 一齊讀。只背其中一句，商場廁所一定唔夠。"],
+		keywords: "潔具 sanitary fitment 廁所 123I ADV-28 洗手盆"
+	},
+	{
+		id: "drain",
+		topic: "sanitary",
+		importance: 3,
+		code: "Cap. 123I",
+		ref: "喉管同隔氣",
+		title: "渠唔係接走就得",
+		point: "污水系統要有隔氣、通氣同正確接駁，地台去水要有坡度去到地漏。Cap. 123I 管潔具、水管、排水同廁所，唔係一條『接去政府沙井』就結束。",
+		detail: "橫管穿過住用房間、地漏高過地面、隔氣彎被拆來『通爽啲』，都係維修同交樓常見毛病。改動排水屬建築工程時，要再判斷係小型工程定要批准，唔好當係水喉師傅私人手藝。",
+		sourceUrl: SRC.sani,
+		sourceLabel: "Cap. 123I",
+		traps: [
+			"拆隔氣彎通渠更有效",
+			"地漏平過地台一樣排水",
+			"改渠永遠不用報"
+		],
+		lines: ["單位入面條污水橫管穿過客廳。業主話舊樓都係咁。舊樓都係咁唔係抗辯。", "隔氣彎被拆。發叔話臭味係你拆出嚟嘅，唔係風水。"],
+		keywords: "排水 隔氣彎 地漏 123I 通氣 渠"
+	},
+	{
+		id: "app37-16",
+		topic: "construct",
+		importance: 4,
+		code: "APP-37 · APP-16",
+		ref: "幕牆同外牆飾面",
+		title: "玻璃幕牆唔係飾面",
+		point: "APP-37 管幕牆、窗同窗牆：結構、防水、安全。APP-16 管外牆飾面（cladding）。兩份都係2024至2026年仍在更新嘅現行說明，唔好用同一套節點詳圖交差。",
+		detail: "玻璃跌落街係公共安全問題，唔係保養選項。結構膠、錨栓、層間位移，要喺圖則同監督入面見到人負責。外牆磚同石材另有濕貼嘅實務說明（ADV-31）。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-37 / APP-16",
+		traps: [
+			"幕牆當建築飾面不用結構",
+			"APP-16 覆蓋所有玻璃幕牆",
+			"外牆磚同幕牆同一份PNAP"
+		],
+		lines: ["幕牆圖交上嚟似效果圖。輝Sir問錨栓邊個計。個會靜咗。", "APP-37 同 APP-16 有人當同一份。一個係窗牆，一個係飾面。"],
+		keywords: "幕牆 curtain wall APP-37 APP-16 cladding 外牆 窗牆"
+	},
+	{
+		id: "tiles",
+		topic: "construct",
+		importance: 3,
+		code: "ADV-31",
+		ref: "外牆濕貼磚",
+		title: "外牆磚係會跌",
+		point: "ADV-31 講外牆濕貼磚：底層、勾縫、伸縮、工藝，直接關係到剝落。外牆磚唔係裝修選色，係會跌落行人路嘅構件。",
+		detail: "維修時只補表面空鼓、底同伸縮縫唔處理，明年同一位置再空。搭棚期間先檢查，好過交樓之後先同保險公司寫信。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP ADV-31",
+		traps: [
+			"外牆磚只係美觀",
+			"空鼓可以刷膠就算",
+			"新樓唔會有剝落"
+		],
+		lines: ["外牆磚空鼓。有人話刷一層膠就交得。ADV-31 唔係咁短。", "行人路上面嗰條磚，係公共安全，唔係業主委員會審美。"],
+		keywords: "外牆磚 tile ADV-31 剝落 spalling 濕貼"
+	},
+	{
+		id: "hoarding",
+		topic: "works",
+		importance: 3,
+		code: "APP-23",
+		ref: "圍板、有蓋行人路、龍門架",
+		title: "圍板都要圖",
+		point: "圍板、有蓋行人路同龍門架（包括臨時車輛出入口）跟 APP-23 同規劃規例相關部分。呢啲係公共安全構築物，唔係判頭用剩餘夾板自由發揮。",
+		detail: "淨高、照明、排水、對行人嘅防護，圖則上要見到。臨時不等於冇標準。佔用街道亦可能要其他部門同意，BD 一份圖唔代表路政已經點頭。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-23",
+		traps: [
+			"臨時圍板不用圖",
+			"有蓋通道淨高可以低頭",
+			"BD 批准等於可以佔路"
+		],
+		lines: ["有蓋行人路矮到人要低頭。強哥話臨時嘅。行人係全程臨時。", "龍門架俾泥頭車出入。APP-23 寫到明包括呢樣，唔係你自己加。"],
+		keywords: "圍板 hoarding 有蓋行人路 gantry APP-23 棚"
+	},
+	{
+		id: "demo",
+		topic: "works",
+		importance: 3,
+		code: "APP-21",
+		ref: "拆卸同公眾安全",
+		title: "拆樓先保護條街",
+		point: "拆卸工程嘅公眾安全措施看 APP-21：防止墮物、鄰近建築物、工序。拆卸唔係『由上到下打』五個字。",
+		detail: "相鄰舊樓、行車道、學校出入口，決定你的防護要去到幾遠。沒有防護方案的拆卸，係第14條問題加公共安全問題一齊嚟。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-21",
+		traps: [
+			"拆卸一律小型工程",
+			"由天台開始打就一定安全",
+			"鄰樓保護是禮貌不是要求"
+		],
+		lines: ["拆卸圖薄過裝修圖。APP-21 會覺得你喺開玩笑。", "街對面係學校。防護方案寫『小心施工』四個字。不夠。"],
+		keywords: "拆卸 demolition APP-21 公眾安全 墮物"
+	},
+	{
+		id: "foundations",
+		topic: "structure",
+		importance: 4,
+		code: "APP-18",
+		ref: "地基守則 2017",
+		title: "地基有自己一本守則",
+		point: "地基設計同施工跟《地基工程實務守則》2017（及其後修訂），APP-18 係入口。樁、筏、工地平整，唔係將上部結構活載除個面積就完成。",
+		detail: "填海地負摩擦力、基岩深度、鄰近鐵路或斜坡，會改變整個方案。地盤勘察唔夠就先出樁圖，係之後所有變更嘅源頭。中層預定地區一類亦要再看 APP-30。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-18",
+		traps: [
+			"上部OK地基自然OK",
+			"所有香港地盤都適合同一種樁",
+			"勘察可以開工後再補"
+		],
+		lines: ["樁基圖比上部圖薄。輝Sir問負摩擦。個會又靜咗。", "地基守則2017。有人仲係用更舊嘅內部樣板，話原則一樣。"],
+		keywords: "地基 foundation 樁 APP-18 負摩擦 勘察"
+	},
+	{
+		id: "wind",
+		topic: "structure",
+		importance: 3,
+		code: "風力規範",
+		ref: "Code of Practice on Wind Effects 2019",
+		title: "香港風唔係抄外國",
+		point: "香港風力效應有2019年嘅實務守則（其後有修訂）。地形、樓高、遮擋，要用呢套本地規定，唔好將其他國家嘅基本風速直接貼上計算書。",
+		detail: "玻璃幕牆同上蓋結構都要食同一場風。建築圖改高度之後，風力計算要重跑，唔係只改立面顏色。",
+		sourceUrl: SRC.codes,
+		sourceLabel: "屋宇署風力規範 2019",
+		traps: [
+			"用英國風速直接交",
+			"改高度不用重算風力",
+			"幕牆風力與結構風力無關"
+		],
+		lines: ["計算書入面個風速我睇唔到係香港邊一區。輝Sir嘅耐心好短。", "立面加高三米。有人話結構不用重算，只係建築『豐富咗』。"],
+		keywords: "風力 wind code 2019 風速 幕牆"
+	},
+	{
+		id: "loads",
+		topic: "structure",
+		importance: 4,
+		code: "活載守則",
+		ref: "Dead and Imposed Loads 2011",
+		title: "活載唔可以全棟一個數",
+		point: "恆載同活載有獨立實務守則（2011，其後有修訂）。住宅、辦公室、集會、停車場、走廊同樓板用途不同，活載就不同。全棟用一個『感覺安全』嘅數，既可能不足，亦可能無謂加載到地基。",
+		detail: "用途改動（倉儲變辦公室，或者相反）係結構問題，唔止係消防人數問題。加牆、加水池、加綠化覆土，都要回到恆載。",
+		sourceUrl: SRC.codes,
+		sourceLabel: "Loads Code 2011",
+		traps: [
+			"全棟3kPa一定安全",
+			"間隔牆不算恆載",
+			"改用途只改消防"
+		],
+		lines: ["全層當倉。活載仍然寫住辦公室。兩份顧問報告，兩種樓。", "天台加覆土做園景。有人當活載，有人當冇載。佢係恆載。"],
+		keywords: "活載 imposed load 恆載 用途改動 kPa 樓板"
+	},
+	{
+		id: "rebar",
+		topic: "structure",
+		importance: 3,
+		code: "APP-45",
+		ref: "鋼筋測試",
+		title: "鋼筋要試，唔好只信送貨單",
+		point: "混凝土用鋼筋嘅測試跟 APP-45。送貨單同證書係起點，抽樣同測試先回答『呢批筋係咪圖則上嗰種』。",
+		detail: "地盤最常見係將測試留到澆混凝土之後先記得。程序錯，解釋成本遠高過當日抽樣。TCP 嘅角色包括見到呢件事發生。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-45",
+		traps: [
+			"有證書不用測試",
+			"測試可以澆完再補",
+			"鋼筋牌號靠顏色分辨"
+		],
+		lines: ["鋼筋到場。有人話證書喺個夾入面，等於測試完成。APP-45 唔會同意。", "澆咗先記得未抽樣。呢句我聽過太多次。"],
+		keywords: "鋼筋 reinforcement test APP-45 混凝土 抽樣"
+	},
+	{
+		id: "tcp",
+		topic: "construct",
+		importance: 3,
+		code: "監督守則",
+		ref: "Site Supervision 2009",
+		title: "TCP 唔係掛名",
+		point: "地盤監督實務守則將監督分成不同人員類別同頻率，AP、RSE、RGE 各有自己嘅監督流。TCP 要按資格同頻率在場，唔係名單交咗上去就完成法定監督。",
+		detail: "關鍵工序（混凝土、鋼筋、樁、斜坡）缺少應到嘅人，記錄上的空白以後會變成事故報告的第一頁。監督計劃要跟工程實際改，唔係開工第一日交完就凍結。",
+		sourceUrl: SRC.codes,
+		sourceLabel: "Site Supervision Code 2009",
+		traps: [
+			"TCP 名單等於每日在場",
+			"任何員工都可以簽任何頻率",
+			"監督計劃不用更新"
+		],
+		lines: ["監督計劃人名好多。現場問邊個係 T3，沒有人举手。", "頻率寫每日。記錄寫『代表到過』。守則要的是監督，不是文學。"],
+		keywords: "TCP 地盤監督 site supervision T1 T3 頻率 監督計劃"
+	},
+	{
+		id: "mic-bim",
+		topic: "pnap",
+		importance: 3,
+		code: "ADV-36 · ADV-34",
+		ref: "MiC 同 BIM",
+		title: "模組化仍然要守條例",
+		point: "ADV-36 講組裝合成法 MiC，ADV-34 講 BIM。兩樣都係交圖同建造方法，唔係豁免建築物條例。模組喺廠做好，運到地盤仍然要符合批准圖、消防、結構同無障礙。",
+		detail: "誤差、接縫、防火封堵、運輸送達之後的檢查，係 MiC 特有又最容易被『廠方已驗』四個字帶過。BIM 模型同批准圖則不一致時，以批准嘅圖則為準，除非你正式改圖。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP ADV-36 / ADV-34",
+		traps: [
+			"MiC 不用批准",
+			"BIM 模型可以取代圖則",
+			"廠內檢查等於地盤監督"
+		],
+		lines: ["廠入面做完，運上嚟先發現走火門闊度唔同圖。阿J話模型是對的。批准圖先係對的。", "MiC 唔係一條可以繞過第14條嘅隧道。"],
+		keywords: "MiC 組裝合成 BIM ADV-36 ADV-34 模組"
+	},
+	{
+		id: "hotel",
+		topic: "planning",
+		importance: 3,
+		code: "APP-40",
+		ref: "酒店",
+		title: "酒店唔係住宅加牌",
+		point: "酒店發展有 APP-40。客房、後勤、車輛、消防同牌照要求，唔等於住宅單位加一個前台。地積點樣用、邊啲面積有條件不計，要跟現行說明，唔好用住宅豁免清單硬套。",
+		detail: "用途類別上酒店客房多數跟第2類去計走火，同住宅單位嘅量度起點唔同。規劃、牌照、消防三份圖要講同一間酒店。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-40",
+		traps: [
+			"酒店等於住宅類別",
+			"服務式住宅自動是酒店",
+			"牌照圖可以不同於批准圖"
+		],
+		lines: ["服務式住宅改口叫酒店，想食另一套豁免。APP-40 唔係改名紙。", "客房走火同住宅走火，量度起點唔同。有人用同一條24米交差。"],
+		keywords: "酒店 hotel APP-40 服務式住宅 用途類別2"
+	},
+	{
+		id: "railway",
+		topic: "structure",
+		importance: 3,
+		code: "APP-24",
+		ref: "鐵路保護",
+		title: "鐵路上面唔係普通地盤",
+		point: "鐵路保護區、鐵路條例同附表第5預定地區第3區，看 APP-24。樁、開挖、降水、甚至監測，都可能要額外同意。唔係交一份普通地基圖就開始鑽。",
+		detail: "測量基準點同預警值要在開工前存在。等鐵路機構寫信來，通常已經太遲。中層預定地區則另看 APP-30，兩個預定地區唔好混。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-24",
+		traps: [
+			"距離鐵路遠少少就不用理",
+			"監測可以開鑽之後再裝",
+			"預定地區只有中層"
+		],
+		lines: ["地盤離鐵路口幾米。有人話樁機未碰到路軌就唔關 APP-24 事。", "預定地區第3區同中層預定地區。兩個名，兩份PNAP。"],
+		keywords: "鐵路 railway APP-24 預定地區 MTR 監測"
+	},
+	{
+		id: "refuse",
+		topic: "planning",
+		importance: 3,
+		code: "APP-35",
+		ref: "垃圾房同物料回收",
+		title: "垃圾房有規例",
+		point: "垃圾及物料回收房、垃圾槽，有獨立規例同 APP-35。面積、位置、車輛到達、清洗，唔係將一個房間標作 refuse 就完成。",
+		detail: "回收同垃圾係政策要求，亦係衛生同消防問題：位置錯會擋走火，面積錯會被食環或屋宇署同時寫信。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-35",
+		traps: [
+			"垃圾房可以隨意放在走火路徑",
+			"住宅不需要回收空間",
+			"面積按感覺"
+		],
+		lines: ["垃圾房畫喺樓梯隔籬。走火同臭味一齊不合格。", "APP-35 有人當環保宣傳。佢係圖則要求。"],
+		keywords: "垃圾房 refuse APP-35 回收 垃圾槽"
+	},
+	{
+		id: "gas-heater",
+		topic: "sanitary",
+		importance: 2,
+		code: "APP-27",
+		ref: "B(P)R 第35A條",
+		title: "氣體熱水爐要有煙道",
+		point: "氣體熱水爐嘅安裝同排煙看規劃規例第35A條同 APP-27。室式冇妥善排煙，係人命問題，唔係廚櫃收納問題。",
+		detail: "更換熱水爐可以落入小型工程或需合格人士，視乎情況。『師傅裝完有火就得』唔係驗收標準。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-27",
+		traps: [
+			"室式熱水爐不用煙道",
+			"更換熱水爐永遠不用任何人",
+			"有窗就等於有排煙"
+		],
+		lines: ["廚櫃密封隻熱水爐。業主話間房好靚。第35A條唔係講靚。", "有窗不等於煙道。有人將兩個概念煮成一鍋。"],
+		keywords: "熱水爐 煙道 APP-27 35A 氣體"
+	},
+	{
+		id: "airport",
+		topic: "planning",
+		importance: 2,
+		code: "APP-32",
+		ref: "Cap. 301",
+		title: "樓高有時係航空限高",
+		point: "機場障礙物管制看《香港機場（障礙管制）條例》（Cap. 301）同 APP-32。附表1准你起的高度，航空限高可以不准。兩個管制同時存在，取更嚴。",
+		detail: "天線、天台機房、塔式起重機都計入障礙物，唔係只計天台地台。近飛行區或在限制平面之下的地盤，要早過出立面圖之前查。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP APP-32",
+		traps: [
+			"建築規例高度就是最終高度",
+			"起重機不用計入障礙物",
+			"只有機場旁才要查"
+		],
+		lines: ["地積未用盡。航空限高先用盡。業主覺得屋宇署欺詐。", "天台天線穿出限制平面。有人話天線不是建築物。飛機不管你的定義。"],
+		keywords: "機場 限高 APP-32 Cap 301 障礙物"
+	},
+	{
+		id: "energy",
+		topic: "pnap",
+		importance: 2,
+		code: "住宅節能",
+		ref: "2014 指引",
+		title: "住宅節能有單獨指引",
+		point: "住宅樓宇能源效益的設計同建造要求，有2014年的指引，同辦公室OTTV嗰套唔係同一份文件。窗牆比、隔熱、空調機位，要對應住宅嗰本，唔好將商業大廈條件抄過去。",
+		detail: "節能指引亦會同採光、消防排煙、外牆安全撞在同一道窗上。改玻璃去滿足節能時，回頭檢查幕牆PNAP同採光分數有冇一齊跌。",
+		sourceUrl: SRC.codes,
+		sourceLabel: "住宅能源效益指引 2014",
+		traps: [
+			"住宅用商業OTTV交差",
+			"節能玻璃不用再查採光",
+			"機位可隨時封死外牆"
+		],
+		lines: ["住宅項目交咗一套商業大廈嘅 OTTV。審查嘅人問呢幢係咪同一棟樓。", "玻璃換深色過節能。採光十分一即刻唔夠。三份顧問要坐低。"],
+		keywords: "能源效益 OTTV 住宅 窗牆 2014"
+	},
+	{
+		id: "colour-plan",
+		topic: "process",
+		importance: 2,
+		code: "ADM-9",
+		ref: "圖則著色",
+		title: "顏色係規定",
+		point: "圖則著色有 ADM-9，唔係公司自己發明圖例。現有、擬建、拆卸如果顏色用錯，審查人員會先讀錯你的圖，然後先退你的圖。",
+		detail: "電子遞交另有成像標準（ADM-10）同電子格式（ADM-17）。顏色在屏幕上正確、打印後變成另一種，都算你的問題。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP ADM-9",
+		traps: [
+			"圖例可以自訂顏色",
+			"屏幕顏色等於打印顏色",
+			"電子圖不用遵守著色"
+		],
+		lines: ["我哋公司圖例用藍色代表拆卸。ADM-9 並不認識我哋公司。", "PDF 入面顏色好好看。打印出來灰成一片。ADM-10 會同你打招呼。"],
+		keywords: "著色 ADM-9 圖例 打印 ADM-10"
+	},
+	{
+		id: "fs-management",
+		topic: "fire",
+		importance: 3,
+		code: "FS Code",
+		ref: "F部",
+		title: "走火門上鎖，設計即刻失效",
+		point: "F部係消防安全管理：日常整理、保養、訓練、火警時點做。設計上的走火門如果被鎖、通道被貨擋住，B部的計算在營運第一日就失效。",
+		detail: "管理計劃唔係交樓文件的附錄裝飾。改變用途、加裝閘機、將防火門換成普通玻璃門，都要先問還是不是原來批准的那棟樓。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code F部",
+		traps: [
+			"消防只是硬件",
+			"閘機裝在出口沒有問題",
+			"管理計劃不用更新"
+		],
+		lines: ["走火門上鎖，話防賊。賊未到，火先到。F部就是為呢句寫的。", "商場閘機裝在唯一出口。管理話可以打開。火警時『可以』這兩個字不夠。"],
+		keywords: "消防管理 F部 走火門上鎖 housekeeping 閘機"
+	},
+	{
+		id: "spalling",
+		topic: "construct",
+		importance: 4,
+		code: "維修實務",
+		ref: "混凝土剝落",
+		title: "剝落唔係批一層灰",
+		point: "混凝土剝落要打到實淨、見到鏽蝕範圍，先做除鏽同修補。只批灰或者油一層遮住，塊嘢會再跌。鋼筋保護層不足、碳化、滲水，係原因，唔係表面污漬。",
+		detail: "外牆磚空鼓跟 ADV-31，結構混凝土剝落係另一件事，可以同時出現。維修物料要同原結構咬得住，伸縮位唔好填死。涉及結構構件的修補，要問係咪要 AP／RSE 或者小型工程，唔好當一般油漆。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP ADV-31 · 建築物條例",
+		traps: [
+			"批灰遮住剝落就合格",
+			"外牆磚空鼓同結構剝落係同一種維修",
+			"任何剝落都唔使報"
+		],
+		lines: ["棚上見到鋼筋，判頭話批完灰聽日除棚。我話打到實淨先。", "滲水位置年年補年年剝。原因唔係灰唔夠厚。"],
+		keywords: "剝落 spalling 混凝土 保護層 除鏽 批灰 外牆"
+	},
+	{
+		id: "tanking",
+		topic: "construct",
+		importance: 4,
+		code: "地庫防水",
+		ref: "tanking",
+		title: "內牆油一層唔係 tanking",
+		point: "地庫防水要係結構外側或者設計指定嘅連續防水層，包括施工縫、穿牆管同收口。室內事後油一層漿，水仍然喺結構入面行，只係暫時睇唔到濕。",
+		detail: "負水面修補同新做外防水唔同。泵房、升降機坑、车道落斜，水位高過防水層就會由最弱嗰個洞入。交樓先發現滲水，通常係收口同工序，唔係『香港地下一定濕』。",
+		sourceUrl: SRC.bcr,
+		sourceLabel: "Cap. 123B",
+		traps: [
+			"室內塗層等於 tanking",
+			"地庫濕是正常現象",
+			"施工縫不用特別處理"
+		],
+		lines: ["地庫牆油完仍然濕。有人話再油多層。水係喺混凝土後面。", "穿牆管一個洞，成幅 tanking 當冇做。"],
+		keywords: "tanking 地庫 防水 滲水 施工縫 負水面"
+	},
+	{
+		id: "mw-class",
+		topic: "works",
+		importance: 5,
+		code: "小型工程",
+		ref: "級別揀錯",
+		title: "第III級唔係萬用藉口",
+		point: "小型工程要對現行附表嘅項目同級別。第III級先可以多數事前通知、唔使完整批准。件工程如果其實係第I級或者根本唔係小型工程，用第III級去做就係走錯程序，唔係『差少少』。",
+		detail: "招牌、冷氣架、拆間隔、改結構，外觀可以好似，級別完全不同。開工前對項目，唔好開工後先搵一項最似的來填表。錯級的後果可以去到第14條，唔止係補交一張紙。",
+		sourceUrl: SRC.bo,
+		sourceLabel: "建築物條例 · 小型工程",
+		traps: [
+			"所有小改動都是第III級",
+			"做完先揀一項來報",
+			"第III級出錯沒有後果"
+		],
+		lines: ["業主話上次師傅都係第III級。今次拆的是另一幅牆。木叔叫停。", "附表有項目編號。『差不多』唔係項目。"],
+		keywords: "小型工程 第III級 第I級 錯級 minor works 附表"
+	},
+	{
+		id: "site-audit",
+		topic: "process",
+		importance: 4,
+		code: "ADM-18",
+		ref: "地盤審核",
+		title: "屋宇署會嚟地盤",
+		point: "ADM-18 係地盤審核。批准圖、監督計劃、測試記錄、同現場做緊的嘢要係同一件事。『圖喺辦公室』『人一時唔喺度』唔係審核答案。",
+		detail: "審核唔係判你刑罰的全部，但係會揭穿監督只係掛名、鋼筋未試已經落石矢、改動冇跟圖。TCP 頻率同流（AP／RSE／RGE）要同監督守則對得上。",
+		sourceUrl: SRC.pnap,
+		sourceLabel: "PNAP ADM-18",
+		traps: [
+			"屋宇署不會落地盤",
+			"有批准圖就不用帶同現場",
+			"監督記錄可以事後一次過補"
+		],
+		lines: ["有人話 BD 唔會嚟。ADM-18 存在的原因就係佢會嚟。", "審核當日，批准圖同現場差一個門口。全場靜音。"],
+		keywords: "地盤審核 ADM-18 site audit 批准圖 監督記錄"
+	},
+	{
+		id: "ironmongery",
+		topic: "fire",
+		importance: 4,
+		code: "FS Code",
+		ref: "防火門五金",
+		title: "防火門上鎖就唔係走火門",
+		point: "走火門要打得開。閉門器、順序器、煙封、門框同一套先算防火門。加掛鎖、加閘、或者將門固定打開，B部計的出口當日失效。",
+		detail: "五金係現場最常被改的部分：業主防盜、租戶防人行、商場防漏閘。F部的管理就係唔好讓人改五金。換門要連證書上的配置，唔好只換門扇。",
+		sourceUrl: SRC.fs,
+		sourceLabel: "FS Code B部 / F部",
+		traps: [
+			"防火門可以加鎖防盜",
+			"有門扇證書就不用閉門器",
+			"走火門可以長期張開"
+		],
+		lines: ["走火門一個掛鎖，話晚上先鎖。晚上先係最需要走的時間。", "門扇有 FD60 紙。閉門器被拆去。紙仍然有效，門已經無效。"],
+		keywords: "防火門 五金 閉門器 掛鎖 ironmongery FD60 走火門"
+	},
+	{
+		id: "dmua-vs-bfa",
+		topic: "access",
+		importance: 5,
+		code: "APP-41 · APP-176",
+		ref: "BFA 2008 對 DMUA 2026",
+		title: "兩本手冊，一條規例",
+		point: "法定最低要求仍然係 B(P)R 第72、73條同附表。APP-41 指向 BFA 2008（2025年版）的強制條款。APP-176（2026年9月）的 DMUA 把通用設計加進去，尚未寫進規例的部分是鼓勵採用，不是自動取代第72條。",
+		detail: "溫書時分開三層：規例必須做、BFA obligatory 必須做、DMUA 多出來的盡量做。舊樓改建做不到，先用 DMUA 的替代做法再申請豁免，不是自己宣布舊樓豁免。",
+		sourceUrl: SRC.app176,
+		sourceLabel: "PNAP APP-176",
+		traps: [
+			"DMUA 出咗就可以掉 BFA",
+			"兩本手冊每一句都係法定",
+			"第72條已經廢除"
+		],
+		lines: ["考試如果問 2026 年跟邊本。我的答案係：法例照跟，DMUA 盡量跟，BFA 的強制條款未消失。", "組裏有人把 APP-41 同 APP-176 疊成一本。交圖的人要寫得出邊條係 obligatory。"],
+		keywords: "DMUA BFA APP-176 APP-41 對比 第72條 通用設計 考試"
+	},
+	{
+		id: "exam-set",
+		topic: "planning",
+		importance: 5,
+		code: "常考",
+		ref: "附表1 · B11 · 表B3",
+		title: "考試先背這三條",
+		point: "常考優先：住用過61米甲／乙／丙地積係 8／9／10，唔係全部10。行走距離唔好背一個36米，住宅由單位門起計24米。樓梯疏散人數查表 B3／B4，唔好用英國5毫米一人；1050毫米是最低那一檔的起點。",
+		detail: "再加兩條就夠應付大部分選擇題：綜合用途地積是兩份比例相加不大於1；地盤類別看第18A條，窄巷不算街。其餘細節翻表，不要在試場發明中間值。",
+		sourceUrl: SRC.bpr,
+		sourceLabel: "Cap. 123F · FS Code",
+		traps: [
+			"三條合成一個口訣就不用翻表",
+			"36米適用所有用途",
+			"5毫米一人是香港數字"
+		],
+		lines: ["聽日測驗。我只背三組：8／9／10、24同36點樣分、表B3唔係5毫米。", "有人想把整本 FS Code 一夜讀完。先做這三條，其他的是加分不是生存。"],
+		keywords: "考試 常考 地積 行走距離 表B3 選擇題"
+	}
+];
+function optionsFor(fact, n) {
+	const items = [
+		{
+			text: fact.point.split("。")[0] ?? fact.point,
+			ok: true
+		},
+		{
+			text: fact.traps[0] ?? "不用翻原文",
+			ok: false
+		},
+		{
+			text: fact.traps[1] ?? fact.traps[0] ?? "全部都啱",
+			ok: false
+		}
+	];
+	const shift = n % items.length;
+	return [...items.slice(shift), ...items.slice(0, shift)];
+}
+function StudyPeek() {
+	const [cursor, setCursor] = (0, import_react.useState)(0);
+	const [picked, setPicked] = (0, import_react.useState)(null);
+	const [score, setScore] = (0, import_react.useState)({
+		right: 0,
+		seen: 0
+	});
+	const fact = FACTS[cursor % FACTS.length];
+	const options = optionsFor(fact, cursor);
+	const answered = picked !== null;
+	function choose(index) {
+		if (answered) return;
+		setPicked(index);
+		setScore((s) => ({
+			right: s.right + (options[index]?.ok ? 1 : 0),
+			seen: s.seen + 1
+		}));
+	}
+	function next() {
+		setCursor((c) => (c + 1) % FACTS.length);
+		setPicked(null);
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "rounded-2xl border border-line bg-surface p-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-between gap-3",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "text-lg font-semibold",
+					children: "測驗"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+					className: "text-xs text-muted",
+					children: [
+						topicLabel(fact.topic),
+						" · ",
+						score.seen === 0 ? "未作答" : `${score.right}/${score.seen}`
+					]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "mt-3 text-sm leading-relaxed",
+				children: [
+					fact.code,
+					" ",
+					fact.ref,
+					"。邊句先啱？"
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-3 flex flex-col gap-2",
+				children: options.map((option, index) => {
+					const tone = !(answered && (option.ok || index === picked)) ? "border-line" : option.ok ? "border-ink bg-ink text-surface" : "border-accent text-accent";
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: `rounded-2xl border px-3 py-3 text-left text-sm leading-relaxed ${tone}`,
+						onClick: () => choose(index),
+						children: option.text
+					}, `${index}-${option.ok}`);
+				})
+			}),
+			answered ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "mt-3 text-xs leading-relaxed text-muted",
+				children: [
+					"出處：",
+					fact.sourceLabel,
+					"。",
+					fact.detail
+				]
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-4 flex gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+					href: fact.sourceUrl,
+					target: "_blank",
+					rel: "noreferrer",
+					className: "inline-flex h-11 flex-1 items-center justify-center rounded-full border border-line text-sm",
+					children: "官方連結"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					className: "h-11 flex-1 rounded-full bg-ink text-sm font-medium text-surface",
+					onClick: next,
+					children: "下一題"
+				})]
+			})
+		]
+	});
+}
+var SOURCES = [
+	{
+		label: "建築物條例 Cap. 123",
+		href: SRC.bo
+	},
+	{
+		label: "規劃規例 Cap. 123F",
+		href: SRC.bpr
+	},
+	{
+		label: "建造規例 Cap. 123B",
+		href: SRC.bcr
+	},
+	{
+		label: "衛生及排水 Cap. 123I",
+		href: SRC.sani
+	},
+	{
+		label: "消防安全守則 2011",
+		href: SRC.fs
+	},
+	{
+		label: "暢通無阻通道 2008",
+		href: SRC.bfa
+	},
+	{
+		label: "通用無障礙 DMUA 2026",
+		href: SRC.dmua
+	},
+	{
+		label: "PNAP 索引",
+		href: SRC.pnap
+	},
+	{
+		label: "APP-152 可持續設計",
+		href: SRC.app152
+	},
+	{
+		label: "APP-176 DMUA",
+		href: SRC.app176
+	}
+];
+var NAV = [
+	{
+		to: "/",
+		label: "時間線",
+		icon: House
+	},
+	{
+		to: "/study",
+		label: "測驗",
+		icon: BookOpen
+	},
+	{
+		to: "/saved",
+		label: "已存",
+		icon: Bookmark
+	}
+];
+function Shell({ children }) {
+	const pathname = useRouterState({ select: (s) => s.location.pathname });
+	const navigate = useNavigate();
+	const [q, setQ] = (0, import_react.useState)("");
+	function onSearch(e) {
+		e.preventDefault();
+		const query = q.trim();
+		navigate({
+			to: "/",
+			search: query ? { q: query } : {}
+		});
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "min-h-screen bg-bg text-ink",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mx-auto grid w-full max-w-6xl grid-cols-1 lg:grid-cols-[14.5rem_minmax(0,1fr)] xl:grid-cols-[14.5rem_minmax(0,38rem)_20rem]",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
+					className: "sticky top-0 hidden h-screen flex-col gap-6 overflow-y-auto px-4 py-5 lg:flex",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+							to: "/",
+							className: "flex items-center gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "grid size-11 place-items-center rounded-2xl bg-ink text-lg font-semibold text-surface",
+								children: "B"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "block text-xl font-semibold leading-none",
+								children: "BuildThreads"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-xs text-muted",
+								children: "建築條例，拉唔完"
+							})] })]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
+							className: "flex flex-col gap-1",
+							children: NAV.map((item) => {
+								const active = item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
+								const Icon = item.icon;
+								return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+									to: item.to,
+									className: `flex h-11 items-center gap-3 rounded-full px-3 text-base ${active ? "bg-ink text-surface" : "hover:bg-accent-soft"}`,
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, { className: "size-5" }), item.label]
+								}, item.to);
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "px-3 text-xs font-semibold text-muted",
+							children: "條例"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "mt-2 flex flex-col",
+							children: TOPICS.map((topic) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+								to: "/",
+								search: topic.id === "all" ? {} : { topic: topic.id },
+								className: "flex h-10 items-center justify-between rounded-full px-3 text-sm hover:bg-accent-soft",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: topic.label }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-xs text-muted",
+									children: topic.hint
+								})]
+							}, topic.id))
+						})] })
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "min-w-0 pb-24 lg:border-x lg:border-line lg:pb-10",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+						className: "sticky top-0 z-10 border-b border-line bg-bg/95 px-4 py-3 backdrop-blur",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-between gap-3 lg:hidden",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+								to: "/",
+								className: "text-lg font-semibold",
+								children: "BuildThreads"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-xs text-muted",
+								children: "刷住溫 · 卡先算數"
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+							onSubmit: onSearch,
+							className: "mt-3 flex gap-2 lg:mt-0",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+								className: "relative min-w-0 flex-1",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "sr-only",
+										children: "搜尋條例"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted" }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+										value: q,
+										onChange: (e) => setQ(e.target.value),
+										placeholder: "地積、走火、無障礙、123I",
+										className: "h-11 w-full rounded-full border border-line bg-surface pr-3 pl-10 text-sm outline-none focus:border-ink"
+									})
+								]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								type: "submit",
+								className: "h-11 shrink-0 rounded-full bg-ink px-4 text-sm font-medium text-surface",
+								children: "搜"
+							})]
+						})]
+					}), children]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
+					className: "sticky top-0 hidden h-screen flex-col gap-4 overflow-y-auto px-4 py-5 xl:flex",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StudyPeek, {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+							className: "rounded-2xl border border-line bg-surface p-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+								className: "text-lg font-semibold",
+								children: "原文"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+								className: "mt-3 flex flex-col gap-2",
+								children: SOURCES.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+									href: item.href,
+									target: "_blank",
+									rel: "noreferrer",
+									className: "text-sm leading-snug hover:text-accent",
+									children: item.label
+								}) }, item.href))
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs leading-relaxed text-muted",
+							children: "帖同留言係隨機口吻，可以嘈、可以錯。重點卡先用來溫。交圖、考試、地盤決定之前，對屋宇署現行 PDF 同電子版法例。"
+						})
+					]
+				})
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
+			className: "fixed inset-x-0 bottom-0 z-20 border-t border-line bg-surface lg:hidden",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mx-auto grid max-w-lg grid-cols-3",
+				children: NAV.map((item) => {
+					const active = item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
+					const Icon = item.icon;
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+						to: item.to,
+						className: `flex h-14 flex-col items-center justify-center gap-0.5 text-xs ${active ? "text-accent" : "text-muted"}`,
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, { className: "size-5" }), item.label]
+					}, item.to);
+				})
+			})
+		})]
+	});
+}
+//#endregion
+export { StudyPeek as a, levelOf as c, Shell as i, topicLabel as l, LEVELS as n, TOPICS as o, SOURCES as r, levelLabel as s, FACTS as t };

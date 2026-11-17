@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "BuildThreads · 建築條例",
+      "hasCanvas": false,
+      "bodyTextLen": 1891,
+      "bodyTextHash": "2cc475de113ca437ef8b520d46496f746d57321242f73c70b2655a1a6cdb866c",
+      "bodyTextPrefix": "B BuildThreads 建築條例，拉唔完 時間線 測驗 已存 條例 全部 睇唔完 規劃 地積 · 上蓋 · 採光 消防 走",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "BuildThreads · 建築條例",
+      "hasCanvas": false,
+      "bodyTextLen": 1091,
+      "bodyTextHash": "f1df31a6e177dffb60d55c4a6b463614cc51a00e895240f026d41b05cb574895",
+      "bodyTextPrefix": "BuildThreads 生成討論 · 卡先算數 搜尋條例 搜 BuildThreads 建築條例時間線。約三分一係誤解帖，留言",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
